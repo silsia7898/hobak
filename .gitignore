@@ -1,0 +1,14 @@
+# Environment & secrets (NEVER commit!)
+.env
+.env.*
+
+# OS & editor files
+.DS_Store
+Thumbs.db
+desktop.ini
+.vscode/
+.idea/
+
+# Dependencies & logs
+node_modules/
+*.log

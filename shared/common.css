@@ -1,0 +1,456 @@
+/* 호박 (Hobak) - Shared Design Tokens & Base Styles */
+@import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css');
+
+:root {
+  --hobak-orange: #4BB82D;
+  --hobak-orange-hover: #3B9D20;
+  --hobak-orange-light: #ECFCDA;
+  --hobak-orange-soft: #C7F29E;
+  --hobak-brown: #4E6B00;
+  --hobak-brown-dark: #2B3D00;
+  --hobak-brown-soft: #DCE678;
+  --hobak-green: #33A326;
+  --hobak-bg: #FFF56E;
+  --hobak-bg-subtle: #FFF899;
+  --hobak-bg-card: rgba(255, 255, 244, 0.94);
+  --hobak-text-primary: #252B06;
+  --hobak-text-secondary: #485214;
+  --hobak-text-muted: #6C782E;
+  --hobak-border: #E5DF65;
+  --hobak-border-strong: #C9D147;
+  --hobak-radius-sm: 8px;
+  --hobak-radius-md: 12px;
+  --hobak-radius-lg: 16px;
+  --hobak-radius-full: 9999px;
+  --hobak-glass-bg: rgba(255, 252, 185, 0.85);
+  --hobak-glass-border: rgba(255, 255, 255, 0.78);
+  --hobak-shadow-sm: 0 10px 28px rgba(102, 118, 0, 0.09);
+  --hobak-shadow-md: 0 20px 44px rgba(102, 118, 0, 0.14);
+  --hobak-transition: 0.32s cubic-bezier(0.22, 1, 0.36, 1);
+  --hobak-max-width: 1080px;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', 'Noto Sans KR', sans-serif;
+  color: var(--hobak-text-primary);
+  background: linear-gradient(160deg, #FFF77A 0%, #FFE946 52%, #E5FA8C 100%);
+  background-attachment: fixed;
+  min-height: 100vh;
+  position: relative;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  line-height: 1.5;
+}
+
+/* Spatial Depth Ambient Autumn Orbs */
+body::before,
+body::after {
+  content: '';
+  position: fixed;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: -1;
+  filter: blur(70px);
+  opacity: 0.45;
+  animation: hobak-orb-drift 14s ease-in-out infinite alternate;
+}
+
+body::before {
+  width: 420px;
+  height: 420px;
+  top: -80px;
+  left: -90px;
+  background: radial-gradient(circle, rgba(255, 230, 0, 0.55), transparent 70%);
+}
+
+body::after {
+  width: 480px;
+  height: 480px;
+  bottom: -120px;
+  right: -100px;
+  background: radial-gradient(circle, rgba(145, 232, 66, 0.45), transparent 70%);
+  animation-delay: -6s;
+}
+
+@keyframes hobak-orb-drift {
+  0% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  100% {
+    transform: translate3d(28px, -24px, 0) scale(1.06);
+  }
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button,
+input,
+textarea,
+select {
+  font-family: inherit;
+}
+
+button {
+  cursor: pointer;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+}
+
+/* Shared Top Header */
+.hobak-header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: var(--hobak-glass-bg);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border-bottom: 1px solid var(--hobak-glass-border);
+  box-shadow: 0 8px 24px rgba(74, 42, 24, 0.05);
+}
+
+.hobak-header-inner {
+  max-width: var(--hobak-max-width);
+  margin: 0 auto;
+  padding: 12px 20px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.hobak-logo {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 21px;
+  font-weight: 800;
+  color: var(--hobak-orange);
+  letter-spacing: -0.03em;
+  flex-shrink: 0;
+}
+
+.hobak-search-form {
+  flex: 1;
+  max-width: 460px;
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.hobak-search-input {
+  width: 100%;
+  height: 40px;
+  padding: 0 42px 0 16px;
+  border-radius: var(--hobak-radius-full);
+  border: 1px solid var(--hobak-border-strong);
+  background: var(--hobak-bg-subtle);
+  font-size: 14px;
+  color: var(--hobak-text-primary);
+  transition: border-color 0.15s, background-color 0.15s;
+}
+
+.hobak-search-input:focus {
+  outline: none;
+  border-color: var(--hobak-orange);
+  background: #FFFFFF;
+}
+
+.hobak-search-btn {
+  position: absolute;
+  right: 10px;
+  background: none;
+  border: none;
+  color: var(--hobak-text-muted);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4px;
+}
+
+.hobak-header-actions {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
+}
+
+.hobak-btn-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  background: var(--hobak-orange);
+  color: #FFFFFF;
+  border: none;
+  border-radius: var(--hobak-radius-sm);
+  padding: 9px 16px;
+  font-size: 14px;
+  font-weight: 700;
+  box-shadow: 0 8px 20px rgba(232, 99, 10, 0.25);
+  transition: background-color var(--hobak-transition), transform var(--hobak-transition), box-shadow var(--hobak-transition);
+}
+
+.hobak-btn-primary:hover {
+  background: var(--hobak-orange-hover);
+  transform: translateY(-2px);
+  box-shadow: 0 12px 26px rgba(232, 99, 10, 0.32);
+}
+
+.hobak-btn-outline {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  background: var(--hobak-glass-bg);
+  backdrop-filter: blur(10px);
+  color: var(--hobak-text-primary);
+  border: 1px solid var(--hobak-glass-border);
+  border-radius: var(--hobak-radius-sm);
+  padding: 8px 14px;
+  font-size: 14px;
+  font-weight: 600;
+  transition: background-color var(--hobak-transition), transform var(--hobak-transition), box-shadow var(--hobak-transition);
+}
+
+.hobak-btn-outline:hover {
+  background: rgba(255, 255, 255, 0.85);
+  transform: translateY(-2px);
+}
+
+/* Shared Footer */
+.hobak-footer {
+  margin-top: 64px;
+  border-top: 1px solid var(--hobak-border);
+  background: #E8F89E;
+  color: var(--hobak-text-secondary);
+  font-size: 13px;
+}
+
+.hobak-footer-inner {
+  max-width: var(--hobak-max-width);
+  margin: 0 auto;
+  padding: 40px 20px 52px;
+}
+
+.hobak-footer-top {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 32px;
+  padding-bottom: 32px;
+  border-bottom: 1px solid var(--hobak-border);
+}
+
+.hobak-footer-cols {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(110px, 1fr));
+  gap: 24px;
+}
+
+.hobak-footer-col h4 {
+  margin: 0 0 12px;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--hobak-text-primary);
+}
+
+.hobak-footer-col ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.hobak-footer-col a {
+  color: var(--hobak-text-muted);
+}
+
+.hobak-footer-col a:hover {
+  text-decoration: underline;
+}
+
+.hobak-footer-bottom {
+  padding-top: 24px;
+  color: var(--hobak-text-muted);
+  font-size: 12px;
+  line-height: 1.7;
+}
+
+@media (max-width: 768px) {
+  .hobak-header-inner {
+    padding: 10px 14px;
+    gap: 10px;
+  }
+  .hobak-footer-cols {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* Header Auth Buttons */
+.hobak-user-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 7px 12px;
+  border-radius: var(--hobak-radius-full);
+  background: var(--hobak-orange-light);
+  border: 1px solid var(--hobak-orange-soft);
+  color: var(--hobak-brown-dark);
+  font-size: 13px;
+  font-weight: 700;
+}
+
+/* Auth Modal */
+.hobak-auth-backdrop[hidden] {
+  display: none !important;
+}
+
+.hobak-auth-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 999;
+  background: rgba(47, 29, 19, 0.48);
+  backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.hobak-auth-modal {
+  width: 100%;
+  max-width: 400px;
+  background: var(--hobak-bg-card);
+  border: 1px solid var(--hobak-border);
+  border-radius: var(--hobak-radius-lg);
+  box-shadow: var(--hobak-shadow-md);
+  padding: 24px;
+  position: relative;
+}
+
+.hobak-auth-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
+}
+
+.hobak-auth-title {
+  margin: 0;
+  font-size: 19px;
+  font-weight: 800;
+  color: var(--hobak-text-primary);
+}
+
+.hobak-auth-close {
+  background: none;
+  border: none;
+  font-size: 20px;
+  color: var(--hobak-text-muted);
+  padding: 4px 8px;
+  border-radius: var(--hobak-radius-sm);
+}
+
+.hobak-auth-close:hover {
+  background: var(--hobak-bg-subtle);
+  color: var(--hobak-text-primary);
+}
+
+.hobak-auth-tabs {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 6px;
+  padding: 4px;
+  background: var(--hobak-bg-subtle);
+  border-radius: var(--hobak-radius-md);
+  margin-bottom: 18px;
+}
+
+.hobak-auth-tab {
+  border: none;
+  background: transparent;
+  padding: 9px 12px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--hobak-text-muted);
+  transition: background-color 0.15s, color 0.15s;
+}
+
+.hobak-auth-tab.is-active {
+  background: #FFFFFF;
+  color: var(--hobak-orange);
+  box-shadow: 0 2px 8px rgba(74, 42, 24, 0.08);
+}
+
+.hobak-auth-form {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.hobak-auth-field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.hobak-auth-field[hidden] {
+  display: none !important;
+}
+
+.hobak-auth-field label {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--hobak-text-secondary);
+}
+
+.hobak-auth-field input {
+  height: 42px;
+  padding: 0 12px;
+  border: 1px solid var(--hobak-border-strong);
+  border-radius: var(--hobak-radius-sm);
+  background: #FFFFFF;
+  font-size: 14px;
+  color: var(--hobak-text-primary);
+}
+
+.hobak-auth-field input:focus {
+  outline: none;
+  border-color: var(--hobak-orange);
+}
+
+.hobak-auth-message {
+  margin: 0;
+  font-size: 13px;
+  font-weight: 600;
+  color: #C62828;
+  min-height: 18px;
+}
+
+.hobak-auth-message.is-success {
+  color: var(--hobak-green);
+}
+
+.hobak-auth-submit {
+  width: 100%;
+  height: 44px;
+  font-size: 15px;
+}

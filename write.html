@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>내 물건 팔기 - 상큼이마켓</title>
+  <link rel="stylesheet" href="shared/common.css?v=20261117_4" />
+  <link rel="stylesheet" href="pages/write.css?v=20261117_4" />
+</head>
+<body>
+  <div id="header-root"></div>
+
+  <main class="write-page">
+    <div class="write-container">
+      <!-- Top Bar -->
+      <div class="write-topbar">
+        <div class="write-topbar-left">
+          <a href="index.html" class="write-close-btn" aria-label="작성 취소하고 홈으로 돌아가기" title="닫기">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <line x1="18" y1="6" x2="6" y2="18"></line>
+              <line x1="6" y1="6" x2="18" y2="18"></line>
+            </svg>
+          </a>
+          <h1 class="write-topbar-title">내 물건 팔기</h1>
+        </div>
+        <div class="write-topbar-actions">
+          <button type="button" id="preview-toggle-btn" class="hobak-btn-outline write-preview-toggle" aria-pressed="false">
+            미리보기
+          </button>
+          <button type="submit" form="write-form" id="submit-top-btn" class="hobak-btn-primary">
+            작성 완료
+          </button>
+        </div>
+      </div>
+
+      <!-- 2-Column Layout: Form (Left) + Live Detail Preview (Right) -->
+      <div class="write-layout" id="write-layout">
+        <!-- Left: Write Form Card -->
+        <section class="write-form-card" id="write-form-section" aria-label="상품 등록 양식">
+          <form id="write-form" novalidate>
+            <!-- 1. Image Upload / Preview Block -->
+            <div class="write-image-section">
+              <div class="write-image-header">
+                <span class="write-section-label">상품 이미지 <small id="image-count-text">0 / 10</small></span>
+                <button type="button" id="clear-images-btn" class="write-text-btn" hidden>전체 삭제</button>
+              </div>
+
+              <div class="write-image-stage" id="image-dropzone" role="button" tabindex="0" aria-label="상품 이미지 업로드">
+                <img id="main-preview-img" class="write-main-preview-img" alt="선택한 상품 이미지 미리보기" hidden />
+                <div class="write-image-placeholder" id="image-placeholder">
+                  <div class="write-camera-icon" aria-hidden="true">
+                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                      <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path>
+                      <circle cx="12" cy="13" r="4"></circle>
+                    </svg>
+                  </div>
+                  <p class="write-placeholder-title">사진을 올리거나 아래 샘플을 선택해보세요</p>
+                  <p class="write-placeholder-sub">클릭 또는 드래그해서 여러 장 추가할 수 있어요 (최대 10장)</p>
+                </div>
+                <span class="write-image-change-badge" id="image-change-badge" hidden>+ 사진 추가</span>
+              </div>
+
+              <input type="file" id="image-file-input" accept="image/*" multiple hidden />
+
+              <!-- Uploaded / Selected Thumbnails Strip -->
+              <div class="write-thumb-strip" id="uploaded-thumb-strip" hidden></div>
+
+              <!-- Preset Sample Images from HobakStore.SAMPLE_IMAGES -->
+              <div class="write-sample-block">
+                <span class="write-sample-label">샘플 이미지 1클릭 선택</span>
+                <div class="write-sample-list" id="sample-image-list"></div>
+              </div>
+            </div>
+
+            <!-- 2. Seller Row (Mirrors Detail Page Seller Info Row) -->
+            <div class="write-seller-row">
+              <div class="write-seller-left">
+                <div class="write-seller-avatar" aria-hidden="true">🎃</div>
+                <div class="write-seller-inputs">
+                  <div class="write-seller-name-wrap">
+                    <label for="seller-name" class="sr-only">판매자 닉네임</label>
+                    <input
+                      type="text"
+                      id="seller-name"
+                      class="write-seller-name-input"
+                      value="호박이웃"
+                      maxlength="20"
+                      placeholder="닉네임"
+                    />
+                  </div>
+                  <div class="write-seller-loc-wrap">
+                    <label for="seller-location" class="sr-only">거래 동네</label>
+                    <select id="seller-location" class="write-seller-loc-select">
+                      <option value="울산 동구 방어동" selected>울산 동구 방어동</option>
+                      <option value="울산 동구 전하동">울산 동구 전하동</option>
+                      <option value="울산 동구 일산동">울산 동구 일산동</option>
+                      <option value="울산 동구 화정동">울산 동구 화정동</option>
+                      <option value="울산 동구 대송동">울산 동구 대송동</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+              <div class="write-manner-badge" title="기본 매너온도">
+                <div class="write-manner-top">
+                  <span class="write-manner-temp">36.5°C</span>
+                  <span aria-hidden="true">😊</span>
+                </div>
+                <div class="write-manner-bar" aria-hidden="true">
+                  <span class="write-manner-bar-fill"></span>
+                </div>
+                <span class="write-manner-label">매너온도</span>
+              </div>
+            </div>
+
+            <!-- 3. Form Fields (Title -> Category -> Price -> Description) -->
+            <div class="write-fields">
+              <!-- Title -->
+              <div class="write-field-group">
+                <label for="item-title" class="write-field-label">제목 <span class="required-dot">*</span></label>
+                <input
+                  type="text"
+                  id="item-title"
+                  class="write-input"
+                  required
+                  maxlength="60"
+                  placeholder="글 제목 (예: 트위드 배색 자켓 스커트 세트)"
+                />
+                <p class="field-error" id="error-title" role="alert"></p>
+              </div>
+
+              <!-- Category -->
+              <div class="write-field-group">
+                <span class="write-field-label">카테고리 <span class="required-dot">*</span></span>
+                <div class="category-pills" id="category-pills" role="radiogroup" aria-label="카테고리 선택"></div>
+                <p class="field-error" id="error-category" role="alert"></p>
+              </div>
+
+              <!-- Price -->
+              <div class="write-field-group">
+                <label for="item-price" class="write-field-label">가격</label>
+                <div class="write-price-input-wrap" id="price-input-wrap">
+                  <span class="write-currency-symbol" aria-hidden="true">₩</span>
+                  <input
+                    type="number"
+                    id="item-price"
+                    class="write-input write-price-input"
+                    min="0"
+                    step="1000"
+                    placeholder="₩ 가격을 입력해주세요"
+                  />
+                </div>
+                <div class="write-price-options">
+                  <label class="checkbox-chip">
+                    <input type="checkbox" id="item-free" />
+                    <span>나눔</span>
+                  </label>
+                  <label class="checkbox-chip">
+                    <input type="checkbox" id="item-negotiable" checked />
+                    <span>가격 제안 받기</span>
+                  </label>
+                </div>
+                <p class="field-error" id="error-price" role="alert"></p>
+              </div>
+
+              <!-- Description -->
+              <div class="write-field-group">
+                <div class="write-label-row">
+                  <label for="item-description" class="write-field-label">자세한 설명 <span class="required-dot">*</span></label>
+                  <span class="write-char-count" id="desc-char-count">0 / 2000</span>
+                </div>
+                <textarea
+                  id="item-description"
+                  class="write-textarea"
+                  rows="6"
+                  required
+                  maxlength="2000"
+                  placeholder="방어동에 올릴 게시글 내용을 작성해주세요. (판매 금지 물품은 게시가 제한될 수 있어요.)"
+                ></textarea>
+                <p class="field-error" id="error-description" role="alert"></p>
+              </div>
+            </div>
+
+            <!-- Bottom Actions -->
+            <div class="write-form-footer">
+              <a href="index.html" class="hobak-btn-outline">취소</a>
+              <button type="submit" class="hobak-btn-primary write-submit-btn">작성 완료</button>
+            </div>
+          </form>
+        </section>
+
+        <!-- Right: Live Detail Page Preview -->
+        <aside class="write-preview-column" id="preview-column" aria-label="상품 상세 페이지 실시간 미리보기">
+          <div class="write-preview-sticky">
+            <div class="preview-column-header">
+              <span class="preview-badge">실시간 상세페이지 미리보기</span>
+              <span class="preview-hint">입력 내용이 바로 반영돼요</span>
+            </div>
+
+            <article class="detail-preview-card">
+              <!-- Preview Image -->
+              <div class="preview-image-box">
+                <img id="preview-card-img" alt="미리보기 상품 이미지" />
+                <span class="preview-image-counter" id="preview-image-counter" hidden>1 / 1</span>
+                <button type="button" class="preview-nav-btn prev" id="preview-prev-btn" aria-label="이전 사진" hidden>‹</button>
+                <button type="button" class="preview-nav-btn next" id="preview-next-btn" aria-label="다음 사진" hidden>›</button>
+              </div>
+
+              <!-- Preview Seller Row -->
+              <div class="preview-seller-row">
+                <div class="preview-seller-left">
+                  <div class="preview-seller-avatar" aria-hidden="true">🎃</div>
+                  <div>
+                    <div class="preview-seller-name" id="preview-seller-name">호박이웃</div>
+                    <div class="preview-seller-location" id="preview-seller-location">울산 동구 방어동</div>
+                  </div>
+                </div>
+                <div class="preview-manner">
+                  <div class="preview-manner-top">
+                    <span>36.5°C</span>
+                    <span aria-hidden="true">😊</span>
+                  </div>
+                  <div class="preview-manner-bar" aria-hidden="true">
+                    <span></span>
+                  </div>
+                  <div class="preview-manner-label">매너온도</div>
+                </div>
+              </div>
+
+              <!-- Preview Content -->
+              <div class="preview-body">
+                <div class="preview-status-row">
+                  <span class="preview-status-badge">판매중</span>
+                </div>
+                <h2 class="preview-title placeholder" id="preview-title">글 제목이 여기에 표시됩니다</h2>
+                <div class="preview-meta">
+                  <span id="preview-category">카테고리 미선택</span>
+                  <span aria-hidden="true">·</span>
+                  <span>방금 전</span>
+                </div>
+                <div class="preview-price-row">
+                  <span class="preview-price" id="preview-price">가격 미입력</span>
+                  <span class="preview-nego-tag" id="preview-nego-tag">가격 제안 가능</span>
+                </div>
+                <p class="preview-description placeholder" id="preview-description">작성하신 자세한 설명이 상품 상세 페이지와 동일한 형태로 표시됩니다.</p>
+                <div class="preview-stats">관심 0 · 채팅 0 · 조회 1</div>
+              </div>
+
+              <!-- Preview Action Bar -->
+              <div class="preview-action-bar" aria-hidden="true">
+                <div class="preview-like-btn">♡</div>
+                <div class="preview-chat-btn">채팅하기</div>
+              </div>
+            </article>
+          </div>
+        </aside>
+      </div>
+    </div>
+  </main>
+
+  <div id="footer-root"></div>
+
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="shared/data.js?v=20261117_4"></script>
+  <script src="shared/layout.js?v=20261117_4"></script>
+  <script src="pages/write.js?v=20261117_4"></script>
+  <script src="shared/antigravity.js"></script>
+</body>
+</html>

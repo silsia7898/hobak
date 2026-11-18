@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>상큼이 - 우리 동네 상큼한 중고거래</title>
+  <link rel="stylesheet" href="shared/common.css?v=20261117_4" />
+  <link rel="stylesheet" href="pages/list.css?v=20261117_4" />
+</head>
+<body>
+  <div id="header-root"></div>
+
+  <section class="list-filter-bar" aria-label="매물 필터">
+    <div class="list-filter-inner">
+      <div class="list-filter-top">
+        <div class="list-location-group">
+          <label for="location-select" class="list-location-pill">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+              <circle cx="12" cy="10" r="3"></circle>
+            </svg>
+            <span class="list-location-prefix">울산 동구</span>
+            <select id="location-select" class="list-location-select" aria-label="동네 선택">
+              <option value="전체 동네">전체 동네</option>
+              <option value="방어동">방어동</option>
+              <option value="전하동">전하동</option>
+              <option value="일산동">일산동</option>
+              <option value="화정동">화정동</option>
+              <option value="대송동">대송동</option>
+            </select>
+          </label>
+        </div>
+
+        <div class="list-filter-controls">
+          <label class="list-available-toggle" for="available-only-checkbox">
+            <input type="checkbox" id="available-only-checkbox" />
+            <span class="list-toggle-box" aria-hidden="true"></span>
+            <span>거래가능만 보기</span>
+          </label>
+
+          <div class="list-sort-wrap">
+            <select id="sort-select" class="list-sort-select" aria-label="정렬 기준">
+              <option value="latest">최신순</option>
+              <option value="popular">인기순</option>
+              <option value="price-asc">낮은 가격순</option>
+              <option value="price-desc">높은 가격순</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <div class="list-category-scroll" role="tablist" aria-label="카테고리 필터" id="category-pills"></div>
+    </div>
+  </section>
+
+  <main class="list-main">
+    <div class="list-layout">
+      <section class="list-content" aria-label="중고거래 매물 목록">
+        <div class="list-section-header">
+          <div class="list-heading-group">
+            <h1 class="list-section-title" id="list-section-title">울산 동구 중고거래 매물</h1>
+            <span class="list-count-badge" id="list-count-badge">총 0개</span>
+          </div>
+          <a href="write.html" class="list-quick-write">+ 내 물건 팔기</a>
+        </div>
+
+        <div class="list-active-query" id="active-query-bar" hidden>
+          <span>"<strong id="active-query-text"></strong>" 검색 결과</span>
+          <button type="button" class="list-query-clear" id="clear-query-btn" aria-label="검색어 지우기">
+            검색 초기화 ×
+          </button>
+        </div>
+
+        <div class="product-grid" id="product-grid"></div>
+
+        <div class="list-empty" id="list-empty" hidden>
+          <div class="list-empty-icon" aria-hidden="true">🎃</div>
+          <h2 class="list-empty-title">조건에 맞는 매물이 없어요</h2>
+          <p class="list-empty-desc">검색어나 필터 조건을 변경해서 다시 찾아보세요.</p>
+          <button type="button" class="hobak-btn-primary" id="reset-filters-btn">필터 초기화</button>
+        </div>
+
+        <nav class="list-pagination" id="list-pagination" aria-label="페이지 이동"></nav>
+      </section>
+
+      <aside class="list-sidebar" aria-label="인기 검색어 및 판매 안내">
+        <div class="sidebar-card">
+          <h2 class="sidebar-title">인기 검색어</h2>
+          <div class="keyword-list" id="popular-keywords"></div>
+        </div>
+
+        <div class="sidebar-promo">
+          <div class="sidebar-promo-badge">상큼이마켓 동네직거래</div>
+          <h3 class="sidebar-promo-title">집에 안 쓰는 물건이<br />있으신가요?</h3>
+          <p class="sidebar-promo-desc">1분 만에 간편하게 올리고<br />동네 이웃과 따뜻하게 거래해보세요.</p>
+          <a href="write.html" class="hobak-btn-primary sidebar-promo-btn">내 물건 팔기</a>
+        </div>
+      </aside>
+    </div>
+  </main>
+
+  <div id="footer-root"></div>
+
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="shared/data.js?v=20261117_4"></script>
+  <script src="shared/layout.js?v=20261117_4"></script>
+  <script src="pages/list.js?v=20261117_4"></script>
+  <script src="shared/antigravity.js"></script>
+</body>
+</html>

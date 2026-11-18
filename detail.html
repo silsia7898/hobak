@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>상품 상세 | 상큼이</title>
+  <link rel="stylesheet" href="shared/common.css?v=20261117_4" />
+  <link rel="stylesheet" href="pages/detail.css?v=20261117_4" />
+</head>
+<body class="detail-body">
+  <div id="header-root"></div>
+
+  <main id="detail-main" class="detail-main" aria-live="polite"></main>
+
+  <div id="footer-root"></div>
+
+  <!-- Toast Notification -->
+  <div id="detail-toast" class="detail-toast" role="status" aria-live="polite" hidden></div>
+
+  <!-- Interactive Chat Drawer/Modal -->
+  <div id="chat-modal-backdrop" class="chat-modal-backdrop" hidden>
+    <div
+      class="chat-modal"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="chat-modal-title"
+    >
+      <div class="chat-modal-header">
+        <div class="chat-seller-info">
+          <span id="chat-seller-avatar" class="chat-seller-avatar" aria-hidden="true"></span>
+          <div>
+            <div class="chat-seller-name-row">
+              <h2 id="chat-modal-title" class="chat-seller-name"></h2>
+              <span id="chat-seller-temp" class="chat-seller-temp"></span>
+            </div>
+            <div id="chat-seller-location" class="chat-seller-location"></div>
+          </div>
+        </div>
+        <button
+          type="button"
+          id="chat-modal-close"
+          class="chat-modal-close"
+          aria-label="채팅창 닫기"
+        >
+          ✕
+        </button>
+      </div>
+
+      <div id="chat-product-bar" class="chat-product-bar"></div>
+
+      <div id="chat-messages" class="chat-messages"></div>
+
+      <div class="chat-quick-replies" id="chat-quick-replies">
+        <button type="button" class="chat-quick-chip" data-msg="안녕하세요! 아직 구매 가능할까요?">구매 가능할까요?</button>
+        <button type="button" class="chat-quick-chip" data-msg="직거래 시간과 장소 조율 가능할까요?">직거래 장소 문의</button>
+        <button type="button" class="chat-quick-chip" data-msg="혹시 네고 가능할까요?">가격 제안</button>
+      </div>
+
+      <form id="chat-form" class="chat-input-form">
+        <input
+          type="text"
+          id="chat-input"
+          class="chat-input"
+          placeholder="메시지를 입력하세요..."
+          autocomplete="off"
+          maxlength="300"
+        />
+        <button type="submit" id="chat-send-btn" class="chat-send-btn">전송</button>
+      </form>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="shared/data.js?v=20261117_4"></script>
+  <script src="shared/layout.js?v=20261117_4"></script>
+  <script src="pages/detail.js?v=20261117_4"></script>
+  <script src="shared/antigravity.js"></script>
+</body>
+</html>
